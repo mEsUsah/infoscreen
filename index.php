@@ -11,6 +11,11 @@
     <div class="header">
         <div id="clockbox"></div>
         <div id="datebox"></div>
+        <div id="calendar">
+            <h2 id="calendar__headline"></h2>
+            <table class="calendar__table">
+            </table>
+        </div>
     </div>
     <div class="page">
         <img class="image--huge" src="assets/img/skarshaugs-white.svg" alt="">
