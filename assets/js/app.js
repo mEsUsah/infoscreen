@@ -138,6 +138,7 @@ function createCalendar(year, month){
 
 window.onload=function(){
 	setClock();
+	createCalendar(2020,0);
 	setInterval(setClock,1000);
 }
 
