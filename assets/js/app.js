@@ -74,6 +74,9 @@ function createCalendar(year, month, calendarId){
 	let tableWrapper = document.createElement("table");
 	let tableHeader = document.createElement("thead");
 	tableWrapper.classList.add("calendar__table");
+	let dataNode = document.createAttribute("data-month");
+	dataNode.value = month;
+	tableWrapper.setAttributeNode(dataNode);
 
 	// Create Headline row in calendar
 	let tableHeadRow = document.createElement("tr");
@@ -164,7 +167,7 @@ function pickCalendarDate(date, dataAttribute){
 
 window.onload=function(){
 	setClock();
-	createCalendar(2020,0,"calendar");
+	createCalendar(2020,0,"calendar1");
 	pickCalendarDate((dateToday.getDate()), "data-date");
 	setInterval(setClock,1000);
 }
