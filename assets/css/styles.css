@@ -60,4 +60,29 @@ body {
 #datebox {
   font-size: 30px;
 }
+
+.calendar__table {
+  margin: 0 auto;
+}
+
+.calendar__table__weeks {
+  font-size: 16px;
+}
+
+.calendar__table__days {
+  font-size: 34px;
+  height: 60px;
+  width: 60px;
+}
+
+.calendar__table__days--active {
+  color: #000000;
+  background-color: white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.calendar__table__days--weekend {
+  color: #8a8a8a;
+}
 /*# sourceMappingURL=styles.css.map */
