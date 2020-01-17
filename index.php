@@ -11,7 +11,7 @@
     <div class="header">
         <div id="clockbox"></div>
         <div id="datebox"></div>
-        <div id="calendar">
+        <div id="calendar1">
             <h2 id="calendar__headline"></h2>
         </div>
     </div>
