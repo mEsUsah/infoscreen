@@ -1,18 +1,12 @@
-
-let tday = new Array("Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag");
-let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
-
-let calendar = document.getElementsByClassName('calendar__table')[0];
-console.log(calendar);
-
 let dateToday = new Date();
+let dateInMonth = dateToday.getDate();
 
-Date.prototype.getWeek = function (dowOffset) {
+Date.prototype.getWeek = function (dayOfWeek) {
 	/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
 	
-		dowOffset = typeof(dowOffset) == 'int' ? dowOffset : 0; //default dowOffset to zero
+		dayOfWeek = typeof(dayOfWeek) == 'int' ? dayOfWeek : 0; //default dayOfWeek to zero
 		var newYear = new Date(this.getFullYear(),0,1);
-		var day = newYear.getDay() - dowOffset; //the day of week the year begins on
+		var day = newYear.getDay() - dayOfWeek; //the day of week the year begins on
 		day = (day >= 0 ? day : day + 7);
 		var daynum = Math.floor((this.getTime() - newYear.getTime() - 
 		(this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
@@ -22,7 +16,7 @@ Date.prototype.getWeek = function (dowOffset) {
 			weeknum = Math.floor((daynum+day-1)/7) + 1;
 			if(weeknum > 52) {
 				nYear = new Date(this.getFullYear() + 1,0,1);
-				nday = nYear.getDay() - dowOffset;
+				nday = nYear.getDay() - dayOfWeek;
 				nday = nday >= 0 ? nday : nday + 7;
 				/*if the next year starts before the middle of
 				  the week, it is week #1 of that year*/
@@ -36,6 +30,9 @@ Date.prototype.getWeek = function (dowOffset) {
 	};
   
 function setClock(){
+	let tday = new Array("Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag");
+	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
+	
 	let d = new Date();
 	let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getYear();
 	if(nyear<1000) nyear+=1900;
@@ -44,33 +41,61 @@ function setClock(){
 	if(nmin<=9) nmin="0"+nmin;
 	if(nsec<=9) nsec="0"+nsec;
 	
-	document.getElementById("datebox").innerHTML=tday[nday]+" "+ndate+". "+tmonth[nmonth]+" "+nyear;
+	document.getElementById("datebox").innerHTML=tmonth[nmonth]+" "+nyear;
 	document.getElementById('clockbox').innerHTML=nhour+":"+nmin+":"+nsec;
+	if((dateInMonth) =! ndate){
+		dateToday = d;
+		pickCalendarDate((dateToday.getDate()), "data-date");
+	}
 }
 
-function createCalendar(year, month){
+function createCalendar(year, month, calendarId){
+	let calendar = document.getElementById(calendarId);
 	let calendarMonth = new Date(year, month, 0);
-	let dayArray = new Array("Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag");
+	//let dayArray = new Array("Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag");
+	let dayArray = new Array("Man","Tir","Ons","Tors","Fre","Lør","Søn");
 
-	// Create first row in calendar
+	function addDay(day){
+		let newItem = document.createElement("td");
+		if(renderDay <= daysInMonth){
+			let textNode = document.createTextNode(day);
+			newItem.appendChild(textNode);
+		}
+		let dataNode = document.createAttribute("data-date");
+		dataNode.value = day;
+		newItem.setAttributeNode(dataNode);
+		newItem.classList.add("calendar__table__days");
+		if(new Date(year, month, renderDay).getDay() == 0 || new Date(year, month, renderDay).getDay() == 6){
+			newItem.classList.add("calendar__table__days--weekend");
+		}
+		return newItem;
+	}
+
+	let tableWrapper = document.createElement("table");
 	let tableHeader = document.createElement("thead");
+	tableWrapper.classList.add("calendar__table");
+
+	// Create Headline row in calendar
 	let tableHeadRow = document.createElement("tr");
 	tableHeader.appendChild(tableHeadRow);
 	for (let index = 0; index < 8; index++) {
 		let newItem = document.createElement("th");
 		if (index == 0) {
-			let textNode = document.createTextNode("Week");
-			newItem.appendChild(textNode);
+			//let textNode = document.createTextNode("Uke");
+			//newItem.appendChild(textNode);
 			tableHeadRow.appendChild(newItem);
 			newItem.classList.add("calendar__table__header__week");
 		} else{
 			let textNode = document.createTextNode(dayArray[index-1]);
 			newItem.appendChild(textNode);
 			newItem.classList.add("calendar__table__header");
+			if(index > 5){
+					newItem.classList.add("calendar__table__days--weekend");
+			}
 		}
 		tableHeadRow.appendChild(newItem);
 	}
-	calendar.appendChild(tableHeader);
+	tableWrapper.appendChild(tableHeader);
 
 	// Create firt row of dates
 	let daysInMonth = calendarMonth.getDate();
@@ -98,18 +123,13 @@ function createCalendar(year, month){
 		if(new Date(year, month, day).getDay() == 1){
 			break;
 		}
-		let newItem = document.createElement("td");
-		let textNode = document.createTextNode(day);
-		newItem.appendChild(textNode);
-		newItem.classList.add("calendar__table__days");
-		tableBodyRow.appendChild(newItem);
+		tableBodyRow.appendChild(addDay(renderDay));
 		renderDay++;
 		
 	}
 	tableBody.appendChild(tableBodyRow);
 
 	//Create the rest of the table
-
 	for (let index = firstWeekNumInMonth; index < lastWeekInMonth; index++) {
 		let newRow = document.createElement("tr");
 		let newWeek = document.createElement("td");
@@ -119,13 +139,7 @@ function createCalendar(year, month){
 		newWeek.classList.add("calendar__table__weeks");
 		newRow.appendChild(newWeek);
 		for (let index = 0; index < 7; index++) {
-			let newItem = document.createElement("td");
-			if(renderDay <= daysInMonth){
-				let textNode = document.createTextNode(renderDay);
-				newItem.appendChild(textNode);
-			}
-			newItem.classList.add("calendar__table__days");
-			newRow.appendChild(newItem);
+			newRow.appendChild(addDay(renderDay));
 			renderDay++;
 			if(new Date(year, month, renderDay).getDay() == 1){
 				break;
@@ -133,12 +147,25 @@ function createCalendar(year, month){
 		}
 		tableBody.appendChild(newRow);
 	}
-	calendar.appendChild(tableBody);
+	tableWrapper.appendChild(tableBody);
+	calendar.appendChild(tableWrapper);
+}
+
+function pickCalendarDate(date, dataAttribute){
+	let allDates = document.querySelectorAll("[" + dataAttribute + "]");
+	let selectedDate = document.querySelector("[" + dataAttribute + "='" + date + "']");
+	let activeClassName = "calendar__table__days--active";
+
+	allDates.forEach(element => {
+		element.classList.remove(activeClassName);
+	});
+	selectedDate.classList.add(activeClassName);
 }
 
 window.onload=function(){
 	setClock();
-	createCalendar(2020,0);
+	createCalendar(2020,0,"calendar");
+	pickCalendarDate((dateToday.getDate()), "data-date");
 	setInterval(setClock,1000);
 }
 

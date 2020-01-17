@@ -68,6 +68,17 @@ body{
         }
         &__days{
             font-size: 34px;
+            height: 60px;
+            width: 60px;
+            &--active{
+                color: #000000;
+                background-color: white;
+                border-radius: 50%;
+                font-weight: bold;
+            }
+            &--weekend{
+                color: #8a8a8a;
+            }
         }
     }
 }

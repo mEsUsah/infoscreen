@@ -13,8 +13,6 @@
         <div id="datebox"></div>
         <div id="calendar">
             <h2 id="calendar__headline"></h2>
-            <table class="calendar__table">
-            </table>
         </div>
     </div>
     <div class="page">
