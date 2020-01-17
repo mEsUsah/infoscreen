@@ -43,11 +43,13 @@ function setClock(){
 	
 	document.getElementById("datebox").innerHTML=tmonth[nmonth]+" "+nyear;
 	document.getElementById('clockbox').innerHTML=nhour+":"+nmin+":"+nsec;
-	if((dateInMonth) =! ndate){
+	if(dateInMonth != ndate){
 		dateToday = d;
+		dateInMonth = dateToday.getDate();
 		pickCalendarDate((dateToday.getDate()), "data-date");
 	}
 }
+
 
 function createCalendar(year, month, calendarId){
 	let calendar = document.getElementById(calendarId);
@@ -163,6 +165,12 @@ function pickCalendarDate(date, dataAttribute){
 		element.classList.remove(activeClassName);
 	});
 	selectedDate.classList.add(activeClassName);
+}
+
+function setToday(year, month, date){
+	dateToday = new Date(year, month, date);
+	dateInMonth = dateToday.getDate();
+	pickCalendarDate(dateToday.getDate(), "data-date");
 }
 
 window.onload=function(){
