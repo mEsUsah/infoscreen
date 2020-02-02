@@ -1,4 +1,5 @@
 let dateToday = new Date();
+let monthToday = dateToday.getMonth();
 let dateInMonth = dateToday.getDate();
 
 Date.prototype.getWeek = function (dayOfWeek) {
@@ -30,24 +31,42 @@ Date.prototype.getWeek = function (dayOfWeek) {
 	};
   
 function setClock(){
-	let tday = new Array("Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag");
-	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
+	//let tday = new Array("Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag");
 	
 	let d = new Date();
-	let nday = d.getDay(), nmonth = d.getMonth(), ndate = d.getDate(), nyear = d.getYear();
-	if(nyear<1000) nyear+=1900;
+	let ndate = d.getDate();
+
 	let nhour=d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
 
 	if(nmin<=9) nmin="0"+nmin;
 	if(nsec<=9) nsec="0"+nsec;
-	
-	document.getElementById("datebox").innerHTML=tmonth[nmonth]+" "+nyear;
+
+	// Update the clock
 	document.getElementById('clockbox').innerHTML=nhour+":"+nmin+":"+nsec;
+
+	// if newly set date is not the same as the global date, update the calendar
 	if(dateInMonth != ndate){
-		dateToday = d;
-		dateInMonth = dateToday.getDate();
-		pickCalendarDate((dateToday.getDate()), "data-date");
+		updateCalendar("calendar1", d);
 	}
+}
+
+function updateCalendar(calendarId, date){
+	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
+	let nmonth = date.getMonth(), nyear = date.getFullYear();
+	
+	// Clear calendar and create a new bases on the new date
+	clearCalendar(calendarId);
+	createCalendar(date.getFullYear(), date.getMonth(), calendarId);
+
+	// Update the Calendar headline with the new date
+	document.getElementById("datebox").innerHTML=tmonth[nmonth]+" "+nyear;
+
+	// Set the global date variable to new date.
+	dateToday = date;
+	dateInMonth = dateToday.getDate();
+	
+	// Mark the new date on the new calendar
+	pickCalendarDate((dateToday.getDate()), "data-date");
 }
 
 
@@ -103,6 +122,7 @@ function createCalendar(year, month, calendarId){
 	tableWrapper.appendChild(tableHeader);
 
 	// Create firt row of dates
+
 	let daysInMonth = calendarMonth.getDate();
 	let lastWeekInMonth = new Date(year, month, daysInMonth).getWeek();
 	
@@ -119,7 +139,6 @@ function createCalendar(year, month, calendarId){
 			newItem.classList.add("calendar__table__weeks");
 		}
 		tableBodyRow.appendChild(newItem);
-
 	}
 
 	let renderDay = 1;
@@ -167,15 +186,27 @@ function pickCalendarDate(date, dataAttribute){
 	selectedDate.classList.add(activeClassName);
 }
 
+function clearCalendar(calendarId){
+	console.log("clear");
+	const parent = document.getElementById(calendarId);
+	while(parent.firstChild){
+		parent.firstChild.remove();
+	}
+}
+// Used for debuging only.
 function setToday(year, month, date){
+	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
 	dateToday = new Date(year, month, date);
 	dateInMonth = dateToday.getDate();
+	document.getElementById("datebox").innerHTML=tmonth[dateToday.getMonth()]+" "+dateToday.getFullYear();
+	clearCalendar("calendar1");
+	createCalendar(dateToday.getFullYear(), dateToday.getMonth(), "calendar1");
 	pickCalendarDate(dateToday.getDate(), "data-date");
 }
 
 window.onload=function(){
 	setClock();
-	createCalendar(2020,0,"calendar1");
+	createCalendar(dateToday.getFullYear(), dateToday.getMonth(), "calendar1");
 	pickCalendarDate((dateToday.getDate()), "data-date");
 	setInterval(setClock,1000);
 }
