@@ -5,7 +5,7 @@ let dateInMonth = dateToday.getDate();
 Date.prototype.getWeek = function (dayOfWeek) {
 	/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
 	
-		dayOfWeek = typeof(dayOfWeek) == 'int' ? dayOfWeek : 0; //default dayOfWeek to zero
+		dayOfWeek = typeof(dayOfWeek) == 'int' ? dayOfWeek : 1; //default dayOfWeek to zero
 		var newYear = new Date(this.getFullYear(),0,1);
 		var day = newYear.getDay() - dayOfWeek; //the day of week the year begins on
 		day = (day >= 0 ? day : day + 7);
@@ -72,9 +72,7 @@ function updateCalendar(calendarId, date){
 
 function createCalendar(year, month, calendarId){
 	let calendar = document.getElementById(calendarId);
-	let calendarMonth = new Date(year, month+1, 0);
-	console.log(month);
-	//let dayArray = new Array("Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag");
+	let calendarMonth = new Date(year, month+1, 0); // Date object is not created from a zero indexed month
 	let dayArray = new Array("Man","Tir","Ons","Tors","Fre","Lør","Søn");
 
 	function addDay(day){
@@ -125,15 +123,15 @@ function createCalendar(year, month, calendarId){
 	// Create firt row of dates
 
 	let daysInMonth = calendarMonth.getDate();
-	console.log(daysInMonth);
 	let lastWeekInMonth = new Date(year, month, daysInMonth).getWeek();
+	let correctedweek = [7,1,2,3,4,5,6];
 	
-	let firstDayNumInMonth = new Date(year, month, 1).getDay();
+	let firstDayNumInMonth = correctedweek[new Date(year, month, 1).getDay()];
 	let firstWeekNumInMonth = new Date(year, month, 1).getWeek();
 	
 	let tableBody = document.createElement("tbody");
 	let tableBodyRow = document.createElement("tr");
-	for (let day = 0; day < firstDayNumInMonth; day++) {
+	for (let day = 0; day < (firstDayNumInMonth); day++) {
 		let newItem = document.createElement("td");
 		if (day == 0) {
 			let textNode = document.createTextNode(firstWeekNumInMonth);
@@ -189,7 +187,6 @@ function pickCalendarDate(date, dataAttribute){
 }
 
 function clearCalendar(calendarId){
-	console.log("clear");
 	const parent = document.getElementById(calendarId);
 	while(parent.firstChild){
 		parent.firstChild.remove();
