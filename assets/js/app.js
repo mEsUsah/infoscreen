@@ -72,7 +72,8 @@ function updateCalendar(calendarId, date){
 
 function createCalendar(year, month, calendarId){
 	let calendar = document.getElementById(calendarId);
-	let calendarMonth = new Date(year, month, 0);
+	let calendarMonth = new Date(year, month+1, 0);
+	console.log(month);
 	//let dayArray = new Array("Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag","Søndag");
 	let dayArray = new Array("Man","Tir","Ons","Tors","Fre","Lør","Søn");
 
@@ -124,6 +125,7 @@ function createCalendar(year, month, calendarId){
 	// Create firt row of dates
 
 	let daysInMonth = calendarMonth.getDate();
+	console.log(daysInMonth);
 	let lastWeekInMonth = new Date(year, month, daysInMonth).getWeek();
 	
 	let firstDayNumInMonth = new Date(year, month, 1).getDay();
