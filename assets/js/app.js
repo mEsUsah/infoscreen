@@ -45,7 +45,7 @@ function setClock(){
 	document.getElementById('clockbox').innerHTML=nhour+":"+nmin+":"+nsec;
 
 	// if newly set date is not the same as the global date, update the calendar
-	if(dateInMonth != ndate){
+	if(dateInMonth != ndate || document.getElementById("datebox").innerHTML==""){
 		updateCalendar("calendar1", d);
 	}
 }
