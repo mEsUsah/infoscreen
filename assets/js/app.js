@@ -1,6 +1,7 @@
 let dateToday = new Date();
 let monthToday = dateToday.getMonth();
 let dateInMonth = dateToday.getDate();
+let yearToday = dateToday.getFullYear();
 
 Date.prototype.getWeek = function (dayOfWeek) {
 	/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
@@ -31,10 +32,7 @@ Date.prototype.getWeek = function (dayOfWeek) {
 	};
   
 function setClock(){
-	//let tday = new Array("Søndag","Mandag","Tirsdag","Onsdag","Torsdag","Fredag","Lørdag");
-	
 	let d = new Date();
-	let ndate = d.getDate();
 
 	let nhour=d.getHours(), nmin = d.getMinutes(), nsec = d.getSeconds();
 
@@ -45,21 +43,24 @@ function setClock(){
 	document.getElementById('clockbox').innerHTML=nhour+":"+nmin+":"+nsec;
 
 	// if newly set date is not the same as the global date, update the calendar
-	if(dateInMonth != ndate || document.getElementById("datebox").innerHTML==""){
-		updateCalendar("calendar1", d);
+	if(dateInMonth != d.getDate() ){
+		updateCalendar(d, "calendar1");
+	}
+	if(monthToday != d.getMonth() || yearToday != d.getFullYear()){
+		updateDateField(d, "datebox");
 	}
 }
 
-function updateCalendar(calendarId, date){
-	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
-	let nmonth = date.getMonth(), nyear = date.getFullYear();
+function updateCalendar(date, calendarId, dateFieldID){
+	//let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
+	//let nmonth = date.getMonth(), nyear = date.getFullYear();
 	
 	// Clear calendar and create a new bases on the new date
 	clearCalendar(calendarId);
 	createCalendar(date.getFullYear(), date.getMonth(), calendarId);
 
 	// Update the Calendar headline with the new date
-	document.getElementById("datebox").innerHTML=tmonth[nmonth]+" "+nyear;
+	if(dateFieldID !== undefined) updateDateField(date, dateFieldID);
 
 	// Set the global date variable to new date.
 	dateToday = date;
@@ -67,6 +68,14 @@ function updateCalendar(calendarId, date){
 	
 	// Mark the new date on the new calendar
 	pickCalendarDate((dateToday.getDate()), "data-date");
+}
+
+function updateDateField(date, dateFieldID){
+	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
+	let nmonth = date.getMonth(), nyear = date.getFullYear();
+	let dateField = document.getElementById(dateFieldID);
+
+	dateField.innerHTML=innerHTML=tmonth[nmonth]+" "+nyear;
 }
 
 
@@ -196,6 +205,9 @@ function clearCalendar(calendarId){
 function setToday(year, month, date){
 	let tmonth = new Array("Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember");
 	dateToday = new Date(year, month, date);
+	monthToday = dateToday.getMonth();
+	yearToday = dateToday.getFullYear();
+
 	dateInMonth = dateToday.getDate();
 	document.getElementById("datebox").innerHTML=tmonth[dateToday.getMonth()]+" "+dateToday.getFullYear();
 	clearCalendar("calendar1");
@@ -205,6 +217,7 @@ function setToday(year, month, date){
 
 window.onload=function(){
 	setClock();
+	updateDateField(dateToday, "datebox");
 	createCalendar(dateToday.getFullYear(), dateToday.getMonth(), "calendar1");
 	pickCalendarDate((dateToday.getDate()), "data-date");
 	setInterval(setClock,1000);

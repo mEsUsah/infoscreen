@@ -12,7 +12,6 @@
         <div id="clockbox"></div>
         <div id="datebox"></div>
         <div id="calendar1">
-            <h2 id="calendar__headline"></h2>
         </div>
     </div>
     <div class="page">
