@@ -15,7 +15,10 @@ body{
 
 .image--huge{
     width: 70%;
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
 .header{
@@ -58,27 +61,4 @@ body{
 #datebox{
     font-size: 30px;
 
-}
-
-.calendar{
-    &__table{
-        margin: 0 auto;
-        &__weeks{
-            font-size: 16px;
-        }
-        &__days{
-            font-size: 34px;
-            height: 60px;
-            width: 60px;
-            &--active{
-                color: #000000;
-                background-color: white;
-                border-radius: 50%;
-                font-weight: bold;
-            }
-            &--weekend{
-                color: #8a8a8a;
-            }
-        }
-    }
 }
