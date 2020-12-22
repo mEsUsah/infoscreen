@@ -1,0 +1,8 @@
+/node_modules
+/.env
+/.idea
+/vendor
+.DS_Store
+npm-debug.log
+web/resources/css/site.min.css.map
+web/resources/weather.json
