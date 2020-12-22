@@ -1,97 +1,94 @@
 import Chart from '../../../node_modules/chart.js/dist/Chart.js';
 
-const clearsky = new Image();
-clearsky.src = 'resources/icons/clearsky.svg';
-const cloudy = new Image();
-cloudy.src = 'resources/icons/cloudy.svg';
-const fair = new Image();
-fair.src = 'resources/icons/fair.svg';
-const fog = new Image();
-fog.src = 'resources/icons/fog.svg';
-const heavyrain = new Image();
-heavyrain.src = 'resources/icons/rain.svg';
-const heavyrainandthunder = new Image();
-heavyrainandthunder.src = 'resources/icons/thunderstorm.svg';
-const heavyrainshowers = new Image();
-heavyrainshowers.src = 'resources/icons/rain.svg';
-const heavyrainshowersandthunder = new Image();
-heavyrainshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const heavysleet = new Image();
-heavysleet.src = 'resources/icons/sleet.svg';
-const heavysleetandthunder = new Image();
-heavysleetandthunder.src = 'resources/icons/thunderstorm.svg';
-const heavysleetshowers = new Image();
-heavysleetshowers.src = 'resources/icons/sleet.svg';
-const heavysleetshowersandthunder = new Image();
-heavysleetshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const heavysnowandthunder = new Image();
-heavysnowandthunder.src = 'resources/icons/thunderstorm.svg';
-const heavysnowshowers = new Image();
-heavysnowshowers.src = 'resources/icons/snow.svg';
-const heavysnowshowersandthunder = new Image();
-heavysnowshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const lightrain = new Image();
-lightrain.src = 'resources/icons/sprinkle.svg';
-const lightrainandthunder = new Image();
-lightrainandthunder.src = 'resources/icons/thunderstorm.svg';
-const lightrainshowers = new Image();
-lightrainshowers.src = 'resources/icons/sprinkle.svg'
-const lightrainshowersandthunder = new Image();
-lightrainshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const lightsleetandthunder = new Image();
-lightsleetandthunder.src = 'resources/icons/thunderstorm.svg';
-const lightsleetshowers = new Image();
-lightsleetshowers.src = 'resources/icons/sprinkle.svg'
-const lightsnow = new Image();
-lightsnow.src = 'resources/icons/snow.svg';
-const lightsnowandthunder = new Image();
-lightsnowandthunder.src = 'resources/icons/thunderstorm.svg';
-const lightsnowshowers = new Image();
-lightsnowshowers.src = 'resources/icons/snow.svg';
-const lightssleetshowersandthunder = new Image();
-lightssleetshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const partlycloudy = new Image();
-partlycloudy.src = 'resources/icons/fair.svg';
-const rain = new Image();
-rain.src = 'resources/icons/rain.svg';
-const rainandthunder = new Image();
-rainandthunder.src = 'resources/icons/thunderstorm.svg';
-const rainshowers = new Image();
-rainshowers.src = 'resources/icons/rain.svg';
-const rainshowersandthunder = new Image();
-rainshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const sleet = new Image();
-sleet.src = 'resources/icons/sleet.svg';
-const sleetandthunder = new Image();
-sleetandthunder.src = 'resources/icons/thunderstorm.svg';
-const sleetshowers = new Image();
-sleetshowers.src = 'resources/icons/sleet.svg';
-const sleetshowersandthunder = new Image();
-sleetshowersandthunder.src = 'resources/icons/thunderstorm.svg';
-const snow = new Image();
-snow.src = 'resources/icons/snow.svg';
-const snowandthunder = new Image();
-snowandthunder.src = 'resources/icons/thunderstorm.svg';
-const snowshowers = new Image();
-snowshowers.src = 'resources/icons/snow.svg';
-const snowshowersandthunder = new Image();
-snowshowersandthunder.src = 'resources/icons/thunderstorm.svg';
+let icons = [];
+icons["clearsky"] = new Image();
+icons["clearsky"].src = 'resources/icons/clearsky.svg';
+icons["cloudy"] = new Image();
+icons["cloudy"].src = 'resources/icons/cloudy.svg';
+icons["fair"] = new Image();
+icons["fair"].src = 'resources/icons/fair.svg';
+icons["fog"] = new Image();
+icons["fog"].src = 'resources/icons/fog.svg';
+icons["heavyrain"] = new Image();
+icons["heavyrain"].src = 'resources/icons/rain.svg';
+icons["heavyrainandthunder"] = new Image();
+icons["heavyrainandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["heavyrainshowers"] = new Image();
+icons["heavyrainshowers"].src = 'resources/icons/rain.svg';
+icons["heavyrainshowersandthunder"] = new Image();
+icons["heavyrainshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["heavysleet"] = new Image();
+icons["heavysleet"].src = 'resources/icons/sleet.svg';
+icons["heavysleetandthunder"] = new Image();
+icons["heavysleetandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["heavysleetshowers"] = new Image();
+icons["heavysleetshowers"].src = 'resources/icons/sleet.svg';
+icons["heavysleetshowersandthunder"] = new Image();
+icons["heavysleetshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["heavysnowandthunder"] = new Image();
+icons["heavysnowandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["heavysnowshowers"] = new Image();
+icons["heavysnowshowers"].src = 'resources/icons/snow.svg';
+icons["heavysnowshowersandthunder"] = new Image();
+icons["heavysnowshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["lightrain"] = new Image();
+icons["lightrain"].src = 'resources/icons/sprinkle.svg';
+icons["lightrainandthunder"] = new Image();
+icons["lightrainandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["lightrainshowers"] = new Image();
+icons["lightrainshowers"].src = 'resources/icons/sprinkle.svg'
+icons["lightrainshowersandthunder"] = new Image();
+icons["lightrainshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["lightsleetandthunder"] = new Image();
+icons["lightsleetandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["lightsleetshowers"] = new Image();
+icons["lightsleetshowers"].src = 'resources/icons/sprinkle.svg'
+icons["lightsnow"] = new Image();
+icons["lightsnow"].src = 'resources/icons/snow.svg';
+icons["lightsnowandthunder"] = new Image();
+icons["lightsnowandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["lightsnowshowers"] = new Image();
+icons["lightsnowshowers"].src = 'resources/icons/snow.svg';
+icons["lightssleetshowersandthunder"] = new Image();
+icons["lightssleetshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["partlycloudy"] = new Image();
+icons["partlycloudy"].src = 'resources/icons/fair.svg';
+icons["rain"] = new Image();
+icons["rain"].src = 'resources/icons/rain.svg';
+icons["rainandthunder"] = new Image();
+icons["rainandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["rainshowers"] = new Image();
+icons["rainshowers"].src = 'resources/icons/rain.svg';
+icons["rainshowersandthunder"] = new Image();
+icons["rainshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["sleet"] = new Image();
+icons["sleet"].src = 'resources/icons/sleet.svg';
+icons["sleetandthunder"] = new Image();
+icons["sleetandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["sleetshowers"] = new Image();
+icons["sleetshowers"].src = 'resources/icons/sleet.svg';
+icons["sleetshowersandthunder"] = new Image();
+icons["sleetshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["snow"] = new Image();
+icons["snow"].src = 'resources/icons/snow.svg';
+icons["snowandthunder"] = new Image();
+icons["snowandthunder"].src = 'resources/icons/thunderstorm.svg';
+icons["snowshowers"] = new Image();
+icons["snowshowers"].src = 'resources/icons/snow.svg';
+icons["snowshowersandthunder"] = new Image();
+icons["snowshowersandthunder"].src = 'resources/icons/thunderstorm.svg';
 
-
-
-
-/* Chart.pluginService.register({
+Chart.pluginService.register({
     afterUpdate: function(chart) {
-        chart.config.data.datasets[0]._meta[0].data[2]._model.pointStyle = cloudy;
+        chart.config.data.datasets[0]._meta[0].data[2]._model.pointStyle = icons["cloudy"];
     }
-}); */
+});
 
 
 export default {
     _hamburger  : document.querySelector("[data-menu-button]"),
     _menu       : document.querySelector("[data-menu-content]"),
 	init() {
-        console.log("graph");
         var ctx = document.getElementById('myChart');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
@@ -112,6 +109,7 @@ export default {
                     pointBackgroundColor: 'rgb(0,0,0)',
                     fill: false,
                     data: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+                    pointStyle: []
 
                 }]
             },
@@ -120,15 +118,24 @@ export default {
                 maintainAspectRatio: false,
                 legend: {
                     display: false
+                },
+                layout: {
+                    padding: {
+                        left: 50,
+                        right: 50,
+                        top: 50,
+                        bottom: 50
+                    }
                 }
             }
         });
         chart.canvas.parentNode.style.height = '500px';
         chart.canvas.parentNode.style.width = '100%';
         
-        function updateChart(timeofday, temperatures){
+        function updateChart(timeofday, temperatures, images){
             chart.data.datasets[0].data = temperatures;
             chart.data.labels = timeofday;
+            chart.data.datasets[0].pointStyle = images;
             chart.update();
         };
 
@@ -139,15 +146,20 @@ export default {
             let dataTemperatures = [];
             let dataHours = [];
             let dataSymbols = [];
+            let dataImages = [];
             for (let i = 0; i < 18; i++) {
                 dataTemperatures[i] = weatherHours[i].data.instant.details.air_temperature;
                 dataHours[i] = new Date(weatherHours[i].time).getHours();
-                dataSymbols[i] = weatherHours[i].data.next_1_hours.summary.symbol_code;
+                let dataSymbolRaw = weatherHours[i].data.next_1_hours.summary.symbol_code;
+                dataSymbols[i] = dataSymbolRaw.split("_")[0];
+                
+                dataImages[i] = icons[dataSymbols[i]];
             }
             /* console.log(dataTemperatures);
             console.log(dataHours);
-            console.log(dataSymbols); */
-            updateChart(dataHours, dataTemperatures);
+            console.log(dataImages); */
+            updateChart(dataHours, dataTemperatures, dataImages);
+            console.log()
         }
 
         function updateTemperatures(){
