@@ -159,7 +159,7 @@ export default {
         
         (function(){
             updateTemperatures();
-            setInterval(updateTemperatures,(3600*1000));
+            setInterval(updateTemperatures,600*1000);
         })();
 
 
