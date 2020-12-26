@@ -129,7 +129,7 @@ export default {
                 }
             }
         });
-        chart.canvas.parentNode.style.height = '500px';
+        chart.canvas.parentNode.style.height = '300px';
         chart.canvas.parentNode.style.width = '100%';
         
         function updateChart(timeofday, temperatures, images){
